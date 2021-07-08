@@ -1,6 +1,8 @@
-import 'package:dashboard_1/router/admin_handlers.dart';
-import 'package:dashboard_1/router/no_page_found_handlers.dart';
 import 'package:fluro/fluro.dart';
+
+import 'package:dashboard_1/router/admin_handlers.dart';
+import 'package:dashboard_1/router/dashboard_handlers.dart';
+import 'package:dashboard_1/router/no_page_found_handlers.dart';
 
 class Flurorouter {
   static final FluroRouter router = new FluroRouter();
@@ -23,6 +25,10 @@ class Flurorouter {
     router.define(registerRoute,
         handler: AdminHandlers.register, transitionType: TransitionType.none);
 
+    // Dashboard
+    router.define(dasboardRoute,
+        handler: DashboardHandlers.dashboard,
+        transitionType: TransitionType.fadeIn);
     // 404
     router.notFoundHandler = NoPageFoundHandlers.noPageFound;
   }

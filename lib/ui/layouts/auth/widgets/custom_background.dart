@@ -25,7 +25,7 @@ class CustomBackground extends StatelessWidget {
         image: AssetImage('fondo.jpg'),
         fit: BoxFit.cover,
       ),
-      color: Colors.pink,
+      color: Colors.deepOrange[600],
     );
   }
 }
