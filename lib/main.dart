@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
+
 import 'package:dashboard_1/providers/auth_provider.dart';
+import 'package:dashboard_1/providers/sidemenu_provider.dart';
 
 import 'package:dashboard_1/router/router.dart';
 
@@ -24,6 +25,7 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(lazy: false, create: (_) => AuthProvider()),
+        ChangeNotifierProvider(lazy: false, create: (_) => SideMenuProvider()),
       ],
       child: MyApp(),
     );
