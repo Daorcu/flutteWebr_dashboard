@@ -1,3 +1,4 @@
+import 'package:dashboard_1/providers/auth_provider.dart';
 import 'package:dashboard_1/providers/register_form_provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class RegisterView extends StatelessWidget {
                             return null;
                           },
                           onChanged: (value) =>
-                              registerFormProvider.password = value,
+                              registerFormProvider.name = value,
                           cursorColor: Colors.black,
                           style: TextStyle(color: Colors.white),
                           decoration: CustomInputs.loginInputDecoration(
@@ -89,7 +90,15 @@ class RegisterView extends StatelessWidget {
                       CustomOutlinedButton(
                         text: 'Crear Cuenta',
                         onPressed: () {
-                          registerFormProvider.validateForm();
+                          final validForm = registerFormProvider.validateForm();
+                          if (!validForm) return;
+
+                          final authProvider =
+                              Provider.of<AuthProvider>(context, listen: false);
+                          authProvider.register(
+                              registerFormProvider.email,
+                              registerFormProvider.password,
+                              registerFormProvider.name);
                         },
                       ),
                       SizedBox(height: 20),

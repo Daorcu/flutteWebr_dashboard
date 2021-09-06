@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:dashboard_1/providers/auth_provider.dart';
-import 'package:dashboard_1/providers/sidemenu_provider.dart';
+import 'package:dashboard_1/api/cafe_api.dart';
 
 import 'package:dashboard_1/router/router.dart';
 
+import 'package:dashboard_1/providers/auth_provider.dart';
+import 'package:dashboard_1/providers/sidemenu_provider.dart';
+import 'package:dashboard_1/providers/categories_provider.dart';
+
 import 'package:dashboard_1/services/local_storage.dart';
 import 'package:dashboard_1/services/navigation_service.dart';
+import 'package:dashboard_1/services/notifications_service.dart';
 
 import 'package:dashboard_1/ui/layouts/auth/auth_layout.dart';
 import 'package:dashboard_1/ui/layouts/splash/splash_layout.dart';
@@ -15,6 +19,7 @@ import 'package:dashboard_1/ui/layouts/dashboard/dashboard_layout.dart';
 
 void main() async {
   await LocalStorage.configurePrefs();
+  CafeApi.configureDio();
   Flurorouter.configureRoutes();
   runApp(AppState());
 }
@@ -26,6 +31,7 @@ class AppState extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(lazy: false, create: (_) => AuthProvider()),
         ChangeNotifierProvider(lazy: false, create: (_) => SideMenuProvider()),
+        ChangeNotifierProvider(create: (_) => CategoriesProvider()),
       ],
       child: MyApp(),
     );
@@ -41,6 +47,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         onGenerateRoute: Flurorouter.router.generator,
         navigatorKey: NavigationService.navigatorKey,
+        scaffoldMessengerKey: NotificationsService.messengerKey,
         // builder: (_, child) => AuthLayout(child: child!),
         builder: (context, child) {
           final authProvider = Provider.of<AuthProvider>(context);

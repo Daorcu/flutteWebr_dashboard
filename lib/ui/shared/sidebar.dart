@@ -1,3 +1,4 @@
+import 'package:dashboard_1/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -49,7 +50,9 @@ class SideBar extends StatelessWidget {
           MenuItem(
             text: 'Categories',
             icon: Icons.layers_outlined,
-            onPressed: () => print('Dashboard'),
+            isActive:
+                sideMenuProvider.currentPage == Flurorouter.categoriesRoute,
+            onPressed: () => navigateTo(Flurorouter.categoriesRoute),
           ),
           MenuItem(
             text: 'Products',
@@ -95,7 +98,9 @@ class SideBar extends StatelessWidget {
           MenuItem(
             text: 'Logout',
             icon: Icons.exit_to_app_outlined,
-            onPressed: () => print('Dashboard'),
+            onPressed: () {
+              Provider.of<AuthProvider>(context, listen: false).logout();
+            },
           ),
         ],
       ),
@@ -103,10 +108,11 @@ class SideBar extends StatelessWidget {
   }
 
   BoxDecoration buildBoxDecoration() => BoxDecoration(
-          gradient: LinearGradient(colors: [
-            Color(0xff092044),
-            Color(0xff092042),
-          ]),
+          // gradient: LinearGradient(colors: [
+          //   Color(0xfff4511e),
+          //   Color(0xfff4511e),
+          // ]),
+          color: Color(0xfff4511e),
           boxShadow: [
             BoxShadow(
                 color: Colors.black,

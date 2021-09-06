@@ -1,4 +1,3 @@
-import 'package:dashboard_1/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -6,6 +5,7 @@ import 'package:email_validator/email_validator.dart';
 
 import 'package:dashboard_1/router/router.dart';
 
+import 'package:dashboard_1/providers/auth_provider.dart';
 import 'package:dashboard_1/providers/login_form_provider.dart';
 
 import 'package:dashboard_1/ui/buttons/link_text.dart';
@@ -34,6 +34,8 @@ class LoginView extends StatelessWidget {
                     child: Column(children: [
                       // Correo
                       TextFormField(
+                          onFieldSubmitted: (_) =>
+                              onFormSubmit(loginFormProvider, authProvider),
                           validator: (value) {
                             if (!EmailValidator.validate(value ?? ''))
                               return 'Email no válido';
@@ -51,6 +53,8 @@ class LoginView extends StatelessWidget {
 
                       // Contraseña
                       TextFormField(
+                          onFieldSubmitted: (_) =>
+                              onFormSubmit(loginFormProvider, authProvider),
                           validator: (value) {
                             if (value == null || value.isEmpty)
                               return 'Ingrese su contraseña';
@@ -71,12 +75,8 @@ class LoginView extends StatelessWidget {
                       SizedBox(height: 20),
                       CustomOutlinedButton(
                         text: 'Ingresar',
-                        onPressed: () {
-                          final isValid = loginFormProvider.validateForm();
-                          if (isValid)
-                            authProvider.login(loginFormProvider.email,
-                                loginFormProvider.password);
-                        },
+                        onPressed: () =>
+                            onFormSubmit(loginFormProvider, authProvider),
                       ),
                       SizedBox(height: 20),
                       LinkText(
@@ -92,5 +92,12 @@ class LoginView extends StatelessWidget {
             ),
           );
         }));
+  }
+
+  void onFormSubmit(
+      LoginFormProvider loginFormProvider, AuthProvider authProvider) {
+    final isValid = loginFormProvider.validateForm();
+    if (isValid)
+      authProvider.login(loginFormProvider.email, loginFormProvider.password);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:dashboard_1/ui/views/categories_view.dart';
 import 'package:provider/provider.dart';
 import 'package:fluro/fluro.dart';
 
@@ -43,6 +44,17 @@ class DashboardHandlers {
 
     if (authProvider.authStatus == AuthStatus.authenticated)
       return BlankView();
+    else
+      return LoginView();
+  });
+
+  static Handler categories = new Handler(handlerFunc: (context, parameters) {
+    final authProvider = Provider.of<AuthProvider>(context!);
+    Provider.of<SideMenuProvider>(context, listen: false)
+        .setCurrentPageUrl(Flurorouter.categoriesRoute);
+
+    if (authProvider.authStatus == AuthStatus.authenticated)
+      return CategoriesView();
     else
       return LoginView();
   });

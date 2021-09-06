@@ -17,8 +17,9 @@ class TextSeparator extends StatelessWidget {
       child: Text(
         text,
         style: GoogleFonts.roboto(
-          color: Colors.white.withOpacity(0.3),
-          fontSize: 12,
+          color: Colors.black38,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
