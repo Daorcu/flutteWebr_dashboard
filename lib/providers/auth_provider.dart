@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:dashboard_1/api/cafe_api.dart';
 
+import 'package:dashboard_1/models/usuario.dart';
 import 'package:dashboard_1/models/http/auth_response.dart';
 
 import 'package:dashboard_1/router/router.dart';

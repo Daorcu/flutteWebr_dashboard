@@ -24,4 +24,13 @@ class AdminHandlers {
     else
       return DashboardView();
   });
+
+  static Handler users = new Handler(handlerFunc: (context, parameters) {
+    final authProvider = Provider.of<AuthProvider>(context!);
+
+    if (authProvider.authStatus == AuthStatus.notAuthenticated)
+      return RegisterView();
+    else
+      return DashboardView();
+  });
 }

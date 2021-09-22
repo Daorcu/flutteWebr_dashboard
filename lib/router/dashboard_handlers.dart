@@ -1,6 +1,9 @@
-import 'package:dashboard_1/ui/views/categories_view.dart';
+import 'package:dashboard_1/ui/views/user_view.dart';
 import 'package:provider/provider.dart';
 import 'package:fluro/fluro.dart';
+
+import 'package:dashboard_1/ui/views/categories_view.dart';
+import 'package:dashboard_1/ui/views/users_view.dart';
 
 import 'package:dashboard_1/router/router.dart';
 import 'package:dashboard_1/providers/auth_provider.dart';
@@ -48,6 +51,7 @@ class DashboardHandlers {
       return LoginView();
   });
 
+  // Categories
   static Handler categories = new Handler(handlerFunc: (context, parameters) {
     final authProvider = Provider.of<AuthProvider>(context!);
     Provider.of<SideMenuProvider>(context, listen: false)
@@ -57,5 +61,32 @@ class DashboardHandlers {
       return CategoriesView();
     else
       return LoginView();
+  });
+
+  // Users
+  static Handler users = new Handler(handlerFunc: (context, parameters) {
+    final authProvider = Provider.of<AuthProvider>(context!);
+    Provider.of<SideMenuProvider>(context, listen: false)
+        .setCurrentPageUrl(Flurorouter.usersRoute);
+
+    if (authProvider.authStatus == AuthStatus.authenticated)
+      return UsersView();
+    else
+      return LoginView();
+  });
+
+  // User
+  static Handler user = new Handler(handlerFunc: (context, parameters) {
+    final authProvider = Provider.of<AuthProvider>(context!);
+    Provider.of<SideMenuProvider>(context, listen: false)
+        .setCurrentPageUrl(Flurorouter.userRoute);
+
+    if (authProvider.authStatus == AuthStatus.authenticated) {
+      if (parameters['uid']?.first != null) {
+        return UserView(uid: parameters['uid']!.first);
+      }
+    } else {
+      return LoginView();
+    }
   });
 }

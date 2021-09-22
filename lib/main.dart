@@ -6,7 +6,9 @@ import 'package:dashboard_1/api/cafe_api.dart';
 import 'package:dashboard_1/router/router.dart';
 
 import 'package:dashboard_1/providers/auth_provider.dart';
+import 'package:dashboard_1/providers/users_provider.dart';
 import 'package:dashboard_1/providers/sidemenu_provider.dart';
+import 'package:dashboard_1/providers/user_form_provider.dart';
 import 'package:dashboard_1/providers/categories_provider.dart';
 
 import 'package:dashboard_1/services/local_storage.dart';
@@ -32,6 +34,8 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(lazy: false, create: (_) => AuthProvider()),
         ChangeNotifierProvider(lazy: false, create: (_) => SideMenuProvider()),
         ChangeNotifierProvider(create: (_) => CategoriesProvider()),
+        ChangeNotifierProvider(create: (_) => UsersProvider()),
+        ChangeNotifierProvider(create: (_) => UserFormProvider()),
       ],
       child: MyApp(),
     );

@@ -13,7 +13,7 @@ import 'package:dashboard_1/ui/shared/widgets/text_separator.dart';
 
 class SideBar extends StatelessWidget {
   void navigateTo(String routeName) {
-    NavigationService.navigateTo(routeName);
+    NavigationService.replaceTo(routeName);
     SideMenuProvider.closeMenu();
   }
 
@@ -65,9 +65,10 @@ class SideBar extends StatelessWidget {
             onPressed: () => print('Dashboard'),
           ),
           MenuItem(
-            text: 'Consumers',
+            text: 'Usuarios',
             icon: Icons.people_alt_outlined,
-            onPressed: () => print('Dashboard'),
+            onPressed: () => navigateTo(Flurorouter.usersRoute),
+            isActive: sideMenuProvider.currentPage == Flurorouter.usersRoute,
           ),
           SizedBox(height: 30),
           TextSeparator(text: 'UI Elements'),
